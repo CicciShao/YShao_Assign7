@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cozy Corner Bookstore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="logo-title">
+        <img src="/static/images/misc/logo.png" class="logo">
+        <h1 class="store-title">Cozy Corner Bookstore</h1>
+    </div>
+
+    <!-- Search Form -->
+    <form class="search-box" action="/search" method="POST">
+        <input type="text" name="search" placeholder="Search books..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Category Dropdown -->
+    <div class="category-dropdown">
+        <p class="dropdown-title">Categories ▾</p>
+
+        <div class="dropdown-menu">
+            {% for c in categories %}
+                <p><a href="/category?categoryId={{ c.id }}">{{ c.name }}</a></p>
+            {% endfor %}
+        </div>
+    </div>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer class="site-footer">
+    <p>© 2025 Cozy Corner Bookstore — All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

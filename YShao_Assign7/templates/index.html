@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="index-container">
+
+    <!-- LEFT SIDE -->
+    <div class="store-description">
+        <h2>Welcome to Cozy Corner Bookstore</h2>
+        <p>
+            Cozy Corner is your warm escape into the world of stories.  
+            Whether you're looking for heartwarming romance, magical fantasy,  
+            timeless classics, or delightful children's tales,  
+            we have something that brings comfort to every reader.
+        </p>
+        <p>
+            Explore our categories on the right and discover your next favorite book!
+        </p>
+    </div>
+
+    <!-- RIGHT SIDE Categories -->
+    <div class="category-list">
+
+        {% for c in categories %}
+            <div class="category-card">
+
+                <a href="/category?categoryId={{ c.id }}">
+                    <img src="{{ url_for('static', filename='images/categories/' + c.image) }}"
+                         alt="{{ c.name }}"
+                         class="category-image">
+                </a>
+
+                <p class="category-name">
+                    <a href="/category?categoryId={{ c.id }}">{{ c.name }}</a>
+                </p>
+
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

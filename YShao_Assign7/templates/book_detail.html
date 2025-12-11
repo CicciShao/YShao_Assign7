@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="detail-container">
+
+    <a href="/category?categoryId={{ book['categoryId'] }}" class="back-button">
+        ← Back to Category
+    </a>
+
+    <div class="detail-card">
+
+        <!-- Book Cover -->
+        <img src="{{ url_for('static', filename='images/books/' + book['image']) }}"
+             class="detail-cover"
+             alt="{{ book['title'] }}">
+
+        <div class="detail-info">
+
+            <h2>{{ book["title"] }}</h2>
+
+            <p><strong>Category:</strong> {{ book["categoryName"] }}</p>
+            <p><strong>Author:</strong> {{ book["author"] }}</p>
+            <p><strong>ISBN:</strong> {{ book["isbn"] }}</p>
+            <p><strong>Price:</strong> ${{ "%.2f"|format(book["price"]) }}</p>
+
+            {% if book["readNow"] == 1 %}
+                <p class="read-now-label">✔ Available to Read Now</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

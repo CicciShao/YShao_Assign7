@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="category-header">
+    <a href="/" class="home-button">Back to Home</a>
+</div>
+
+<div class="category-page-container">
+
+    <!-- LEFT SIDE: Category buttons -->
+    <div class="category-sidebar">
+        <h3>Categories</h3>
+
+        {% for c in categories %}
+            <p class="{% if c['id'] == selectedCategory %}selectedCategory{% else %}notSelectedCategory{% endif %}">
+                <a href="/category?categoryId={{ c['id'] }}">
+                    {{ c['name'] }}
+                </a>
+            </p>
+        {% endfor %}
+    </div>
+
+    <!-- RIGHT SIDE: Books -->
+    <div class="books-display">
+
+        <h2>{{ currentCategoryName }}</h2>
+
+        {% if books|length == 0 %}
+            <p>No books found in this category.</p>
+        {% endif %}
+
+        {% for book in books %}
+            <div class="book-card">
+
+                <!-- Book Image -->
+                <a href="/book/{{ book['id'] }}">
+                    <img src="{{ url_for('static', filename='images/books/' + book['image']) }}"
+                         alt="{{ book['title'] }}"
+                         class="book-cover">
+                </a>
+
+                <div class="book-info">
+                    <h3>
+                        <a href="/book/{{ book['id'] }}">
+                            {{ book['title'] }}
+                        </a>
+                    </h3>
+
+                    <p><strong>Author:</strong> {{ book['author'] }}</p>
+                    <p><strong>ISBN:</strong> {{ book['isbn'] }}</p>
+                    <p><strong>Price:</strong> ${{ '%.2f'|format(book['price']) }}</p>
+
+                    {% if book['readNow'] == 1 %}
+                        <p class="read-now">Read Now ✔</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}
